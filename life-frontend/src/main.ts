@@ -74,15 +74,40 @@ const drawGrid = () => {
   ctx.stroke();
 };
 
+let animationId: number | null = null;
+
 const renderLoop = () => {
   universe.tick();
 
   drawGrid();
   drawCells();
 
-  requestAnimationFrame(renderLoop);
+  animationId = requestAnimationFrame(renderLoop);
 };
+
+const pauseElement = document.getElementById("pause") as HTMLButtonElement;
+
+const play = () => {
+  pauseElement.textContent = "⏸";
+  renderLoop();
+};
+
+const pause = () => {
+  pauseElement.textContent = "▶";
+  if (animationId) cancelAnimationFrame(animationId);
+  animationId = null;
+};
+
+const isPaused = () => animationId === null;
+
+pauseElement.addEventListener("click", () => {
+  if (isPaused()) {
+    play();
+  } else {
+    pause();
+  }
+});
 
 drawGrid();
 drawCells();
-requestAnimationFrame(renderLoop);
+play();
