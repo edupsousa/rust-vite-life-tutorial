@@ -115,4 +115,8 @@ impl Universe {
         let idx = self.get_index(row, col);
         self.cells.set(idx, !self.cells[idx]);
     }
+
+    pub fn clear(&mut self) {
+        self.cells.clear();
+    }
 }

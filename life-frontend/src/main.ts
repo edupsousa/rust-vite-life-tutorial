@@ -125,6 +125,14 @@ canvas.addEventListener("click", (event) => {
   drawCells();
 });
 
+const clearElement = document.getElementById("clear") as HTMLButtonElement;
+clearElement.addEventListener("click", () => {
+  pause();
+  universe.clear();
+  drawGrid();
+  drawCells();
+});
+
 drawGrid();
 drawCells();
 play();
